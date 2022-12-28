@@ -20,7 +20,8 @@ singleUpload(){
   for item in "$@";
   do
     # replace '~' sign with user's home directory
-    filePath=$(echo "$item" | sed s:"~":"$HOME":g)                                    # <--------
+    # filePath=$(echo "$item" | sed s:"~":"$HOME":)
+    filePath=${item//~/"$HOME"}                                    # <--------
     # check if file exists
     if ! [ -f "$filePath" ];
     then
@@ -54,7 +55,7 @@ printDownloadResponse(){
 }
 
 
-while getopts "hd:" options
+while getopts "hvd:" options
 do
   case "${options}" in
     d)
@@ -63,6 +64,7 @@ do
       ;;
     v)
       echo "${currentVersion}"
+      exit 0
       ;;
     h)
       echo "Description: Bash tool to transfer files from the command line.

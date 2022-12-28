@@ -50,6 +50,16 @@ printDownloadResponse(){
   echo "Success!"
 }
 
+printDescription(){
+  echo "Description: Bash tool to transfer files from the command line.
+Usage:
+  -d  ...
+  -h  Show the help ... 
+  -v  Get the tool version
+Examples:
+  <Couple of examples will be soon...>"
+}
+
 # Parse given options
 while getopts "hvd:" options
 do
@@ -64,16 +74,11 @@ do
       exit 0
       ;;
     h)
-      echo "Description: Bash tool to transfer files from the command line.
-Usage:
-  -d  ...
-  -h  Show the help ... 
-  -v  Get the tool version
-Examples:
-  <Couple of examples will be soon...>"
+      printDescription
       exit 0
       ;;
     *)
+      echo "usage []"
       exit 1
   esac
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-currentVersion="0.0.1"
+currentVersion="1.23.0"
 
 httpSingleUpload(){
   response=$(curl -A curl --upload-file "$1" "https://transfer.sh/$2") \

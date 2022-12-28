@@ -3,6 +3,7 @@
 currentVersion="1.23.0"
 
 httpSingleUpload(){
+  # Upload with "curl" tool and save result to "response" variable
   response=$(curl -A curl --upload-file "$1" "https://transfer.sh/$2") \
             || { echo "Failure!"; return 1;}
   printUploadResponse
@@ -15,27 +16,23 @@ printUploadResponse(){
 }
 
 singleUpload(){
-  # iterate files to upload
+  # Iterate through filenames to upload
   for item in "$@";
   do
-    # replace '~' sign with user's home directory
-    # filePath=$(echo "$item" | sed s:"~":"$HOME":)
-    filePath=${item//~/"$HOME"}                                    # <--------
-    # check if file exists
+    # Replace '~' sign with user's home directory
+    filePath=${item//~/"$HOME"}
+    # Check if file exists
     if ! [ -f "$filePath" ];
     then
       echo "Error: invalid file path" 
       return 1 
     fi
-    # cut the file name and assign to the tempFileName variable
+    # Cut the file name and assign to the "tempFileName" variable
     tempFileName=$(echo "$item" | sed "s/.*\///")
     echo "Uploading $tempFileName"
     httpSingleUpload "${filePath}" "${tempFileName}"
   done
 }
-
-# sample file id for download: ppkkFf
-# sampleID="nVjufu"
 
 singleDownload(){
   local saveDirectory="${1}"
@@ -53,9 +50,10 @@ printDownloadResponse(){
   echo "Success!"
 }
 
-
+# Parse given options
 while getopts "hvd:" options
 do
+
   case "${options}" in
     d)
       singleDownload "$2" "$3" "$4"
@@ -72,12 +70,13 @@ Usage:
   -h  Show the help ... 
   -v  Get the tool version
 Examples:
-  <Write a couple of examples, how to use your tool>"
+  <Couple of examples will be soon...>"
       exit 0
       ;;
     *)
       exit 1
   esac
+
 done
 
 singleUpload "$@" || exit 1

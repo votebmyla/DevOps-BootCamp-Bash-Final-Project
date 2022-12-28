@@ -10,9 +10,8 @@ httpSingleUpload(){
 
 
 printUploadResponse(){
-  # cut uploaded file ID
-  # local fileID=$(echo "$response" | cut -d "/" -f 4)
-  echo "${response}"
+  # Print transfer file URL
+  echo "Transfer File URL: ${response}"
 }
 
 singleUpload(){
